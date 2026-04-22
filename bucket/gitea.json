@@ -1,0 +1,59 @@
+{
+    "version": "1.25.5",
+    "description": "A painless self-hosted Git service",
+    "homepage": "https://gitea.io/",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://mirrors.jcut.edu.cn/github-release/go-gitea/gitea/LatestRelease/gitea-1.25.5-windows-4.0-amd64.exe.xz",
+            "hash": "a424b24eb728fb783788b5047f260bed93168dee6d8285830145a14d4f5e195f"
+        },
+        "32bit": {
+            "url": "https://mirrors.jcut.edu.cn/github-release/go-gitea/gitea/LatestRelease/gitea-1.25.5-windows-4.0-386.exe.xz",
+            "hash": "4342761ef1ec681f05f98be5a5d55c27700446bd5ade34cd83b7f1c5b498d26f"
+        }
+    },
+    "installer": {
+        "script": [
+            "Get-Item \"$dir\\gitea*.exe\" | Rename-Item -NewName 'gitea.exe'",
+            "if (!(Test-Path \"$persist_dir\\custom\\conf\")) {",
+            "   New-Item \"$persist_dir\\custom\\conf\" -ItemType Directory | Out-Null",
+            "}",
+            "if (!(Test-Path \"$persist_dir\\custom\\conf\\app.ini\")) {",
+            "   @(",
+            "       '[database]'",
+            "       'DB_TYPE = sqlite3'",
+            "       \"PATH = $persist_dir/data/gitea.db\"",
+            "       '[repository]'",
+            "       \"ROOT = $persist_dir/repositories\"",
+            "       '[log]'",
+            "       \"ROOT_PATH = $persist_dir/log\"",
+            "   ) -replace '\\\\', '/' | Set-Content \"$persist_dir\\custom\\conf\\app.ini\" -Encoding ASCII",
+            "}"
+        ]
+    },
+    "bin": "gitea.exe",
+    "persist": [
+        "custom",
+        "repositories",
+        "log",
+        "data"
+    ],
+    "checkver": {
+        "url": "https://mirrors.jcut.edu.cn/github-release/go-gitea/gitea/LatestRelease/",
+        "regex": "gitea-([\\d.]+)-"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://mirrors.jcut.edu.cn/github-release/go-gitea/gitea/LatestRelease/gitea-$version-windows-4.0-amd64.exe.xz"
+            },
+            "32bit": {
+                "url": "https://mirrors.jcut.edu.cn/github-release/go-gitea/gitea/LatestRelease/gitea-$version-windows-4.0-386.exe.xz"
+            }
+        },
+        "hash": {
+            "url": "$url.sha256"
+        }
+    }
+}
