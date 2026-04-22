@@ -1,0 +1,35 @@
+{
+    "version": "2.7.12",
+    "description": "A secure runtime for JavaScript and TypeScript",
+    "homepage": "https://deno.com",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://mirrors.tuna.tsinghua.edu.cn/github-release/denoland/deno/LatestRelease/deno-x86_64-pc-windows-msvc.zip",
+            "hash": "f0db746796ff2155444e4b6b42b24ff1139882626e2cdc3943743a7980f4bc2a"
+        },
+        "arm64": {
+            "url": "https://mirrors.tuna.tsinghua.edu.cn/github-release/denoland/deno/LatestRelease/deno-aarch64-pc-windows-msvc.zip",
+            "hash": "01b27affdec8c747d330415085e6c532b8a342cf16937c6c5e0df2fb9fa5f0cc"
+        }
+    },
+    "bin": "deno.exe",
+    "checkver": {
+        "url": "https://mirrors.tuna.tsinghua.edu.cn/github-release/denoland/deno/",
+        "regex": "\"v([\\d.]+)\""
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://mirrors.tuna.tsinghua.edu.cn/github-release/denoland/deno/LatestRelease/deno-x86_64-pc-windows-msvc.zip"
+            },
+            "arm64": {
+                "url": "https://mirrors.tuna.tsinghua.edu.cn/github-release/denoland/deno/LatestRelease/deno-aarch64-pc-windows-msvc.zip"
+            }
+        },
+        "hash": {
+            "url": "$url.sha256sum",
+            "regex": "$sha256"
+        }
+    }
+}
